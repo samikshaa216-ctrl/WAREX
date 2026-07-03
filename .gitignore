@@ -1,0 +1,28 @@
+# ROS2 / colcon build artifacts (regenerate with colcon build)
+build/
+install/
+log/
+**/__pycache__/
+*.pyc
+
+# Python virtual environment
+venv/
+*.egg-info/
+
+# Node / React
+node_modules/
+dist/
+.vite/
+*.log
+.env
+
+# Runtime logs
+logs/*.jsonl
+
+# Zipped source backups
+src.zip
+
+# Editor / OS
+.vscode/
+*.swp
+.DS_Store

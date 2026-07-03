@@ -1,0 +1,217 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="warex_warehouse">
+
+    <!-- Lighting -->
+    <include><uri>model://sun</uri></include>
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- Warehouse floor (30x30 grid, each cell = 0.5m → 15x15m total) -->
+
+    <!-- OUTER WALLS -->
+    <model name="wall_north">
+      <static>true</static>
+      <pose>7.5 15 0.5 0 0 0</pose>
+      <link name="link">
+        <collision name="col"><geometry><box><size>15 0.1 1</size></box></geometry></collision>
+        <visual name="vis"><geometry><box><size>15 0.1 1</size></box></geometry>
+          <material><ambient>0.3 0.3 0.3 1</ambient></material></visual>
+      </link>
+    </model>
+
+    <model name="wall_south">
+      <static>true</static>
+      <pose>7.5 0 0.5 0 0 0</pose>
+      <link name="link">
+        <collision name="col"><geometry><box><size>15 0.1 1</size></box></geometry></collision>
+        <visual name="vis"><geometry><box><size>15 0.1 1</size></box></geometry>
+          <material><ambient>0.3 0.3 0.3 1</ambient></material></visual>
+      </link>
+    </model>
+
+    <model name="wall_west">
+      <static>true</static>
+      <pose>0 7.5 0.5 0 0 1.5708</pose>
+      <link name="link">
+        <collision name="col"><geometry><box><size>15 0.1 1</size></box></geometry></collision>
+        <visual name="vis"><geometry><box><size>15 0.1 1</size></box></geometry>
+          <material><ambient>0.3 0.3 0.3 1</ambient></material></visual>
+      </link>
+    </model>
+
+    <model name="wall_east">
+      <static>true</static>
+      <pose>15 7.5 0.5 0 0 1.5708</pose>
+      <link name="link">
+        <collision name="col"><geometry><box><size>15 0.1 1</size></box></geometry></collision>
+        <visual name="vis"><geometry><box><size>15 0.1 1</size></box></geometry>
+          <material><ambient>0.3 0.3 0.3 1</ambient></material></visual>
+      </link>
+    </model>
+
+    <!-- TOP-LEFT SHELF BLOCK (grid x:3-10, y:3/5/7 → world x:1.5-5, y:1.5/2.5/3.5) -->
+    <model name="shelf_tl_row1">
+      <static>true</static>
+      <pose>2.0 1.5 0.6 0 0 0</pose>
+      <link name="link">
+        <collision name="col"><geometry><box><size>3.5 0.4 1.2</size></box></geometry></collision>
+        <visual name="vis"><geometry><box><size>3.5 0.4 1.2</size></box></geometry>
+          <material><ambient>0.1 0.2 0.4 1</ambient></material></visual>
+      </link>
+    </model>
+    <model name="shelf_tl_row2">
+      <static>true</static>
+      <pose>2.0 2.5 0.6 0 0 0</pose>
+      <link name="link">
+        <collision name="col"><geometry><box><size>3.5 0.4 1.2</size></box></geometry></collision>
+        <visual name="vis"><geometry><box><size>3.5 0.4 1.2</size></box></geometry>
+          <material><ambient>0.1 0.2 0.4 1</ambient></material></visual>
+      </link>
+    </model>
+    <model name="shelf_tl_row3">
+      <static>true</static>
+      <pose>2.0 3.5 0.6 0 0 0</pose>
+      <link name="link">
+        <collision name="col"><geometry><box><size>3.5 0.4 1.2</size></box></geometry></collision>
+        <visual name="vis"><geometry><box><size>3.5 0.4 1.2</size></box></geometry>
+          <material><ambient>0.1 0.2 0.4 1</ambient></material></visual>
+      </link>
+    </model>
+
+    <!-- TOP-RIGHT SHELF BLOCK -->
+    <model name="shelf_tr_row1">
+      <static>true</static>
+      <pose>10.5 1.5 0.6 0 0 0</pose>
+      <link name="link">
+        <collision name="col"><geometry><box><size>3.5 0.4 1.2</size></box></geometry></collision>
+        <visual name="vis"><geometry><box><size>3.5 0.4 1.2</size></box></geometry>
+          <material><ambient>0.1 0.2 0.4 1</ambient></material></visual>
+      </link>
+    </model>
+    <model name="shelf_tr_row2">
+      <static>true</static>
+      <pose>10.5 2.5 0.6 0 0 0</pose>
+      <link name="link">
+        <collision name="col"><geometry><box><size>3.5 0.4 1.2</size></box></geometry></collision>
+        <visual name="vis"><geometry><box><size>3.5 0.4 1.2</size></box></geometry>
+          <material><ambient>0.1 0.2 0.4 1</ambient></material></visual>
+      </link>
+    </model>
+    <model name="shelf_tr_row3">
+      <static>true</static>
+      <pose>10.5 3.5 0.6 0 0 0</pose>
+      <link name="link">
+        <collision name="col"><geometry><box><size>3.5 0.4 1.2</size></box></geometry></collision>
+        <visual name="vis"><geometry><box><size>3.5 0.4 1.2</size></box></geometry>
+          <material><ambient>0.1 0.2 0.4 1</ambient></material></visual>
+      </link>
+    </model>
+
+    <!-- MID-LEFT SHELVES -->
+    <model name="shelf_ml_row1">
+      <static>true</static>
+      <pose>2.0 6.5 0.6 0 0 0</pose>
+      <link name="link">
+        <collision name="col"><geometry><box><size>3.5 0.4 1.2</size></box></geometry></collision>
+        <visual name="vis"><geometry><box><size>3.5 0.4 1.2</size></box></geometry>
+          <material><ambient>0.1 0.2 0.4 1</ambient></material></visual>
+      </link>
+    </model>
+    <model name="shelf_ml_row2">
+      <static>true</static>
+      <pose>2.0 7.5 0.6 0 0 0</pose>
+      <link name="link">
+        <collision name="col"><geometry><box><size>3.5 0.4 1.2</size></box></geometry></collision>
+        <visual name="vis"><geometry><box><size>3.5 0.4 1.2</size></box></geometry>
+          <material><ambient>0.1 0.2 0.4 1</ambient></material></visual>
+      </link>
+    </model>
+
+    <!-- MID-RIGHT SHELVES -->
+    <model name="shelf_mr_row1">
+      <static>true</static>
+      <pose>10.5 6.5 0.6 0 0 0</pose>
+      <link name="link">
+        <collision name="col"><geometry><box><size>3.5 0.4 1.2</size></box></geometry></collision>
+        <visual name="vis"><geometry><box><size>3.5 0.4 1.2</size></box></geometry>
+          <material><ambient>0.1 0.2 0.4 1</ambient></material></visual>
+      </link>
+    </model>
+    <model name="shelf_mr_row2">
+      <static>true</static>
+      <pose>10.5 7.5 0.6 0 0 0</pose>
+      <link name="link">
+        <collision name="col"><geometry><box><size>3.5 0.4 1.2</size></box></geometry></collision>
+        <visual name="vis"><geometry><box><size>3.5 0.4 1.2</size></box></geometry>
+          <material><ambient>0.1 0.2 0.4 1</ambient></material></visual>
+      </link>
+    </model>
+
+    <!-- BOTTOM-RIGHT SHELVES -->
+    <model name="shelf_br_row1">
+      <static>true</static>
+      <pose>12.0 10.5 0.6 0 0 0</pose>
+      <link name="link">
+        <collision name="col"><geometry><box><size>2.5 0.4 1.2</size></box></geometry></collision>
+        <visual name="vis"><geometry><box><size>2.5 0.4 1.2</size></box></geometry>
+          <material><ambient>0.1 0.2 0.4 1</ambient></material></visual>
+      </link>
+    </model>
+    <model name="shelf_br_row2">
+      <static>true</static>
+      <pose>12.0 11.5 0.6 0 0 0</pose>
+      <link name="link">
+        <collision name="col"><geometry><box><size>2.5 0.4 1.2</size></box></geometry></collision>
+        <visual name="vis"><geometry><box><size>2.5 0.4 1.2</size></box></geometry>
+          <material><ambient>0.1 0.2 0.4 1</ambient></material></visual>
+      </link>
+    </model>
+
+    <!-- CHARGING DOCKS — 4 corners, yellow markers -->
+    <model name="dock_tl">
+      <static>true</static>
+      <pose>0.5 14.5 0.05 0 0 0</pose>
+      <link name="link">
+        <visual name="vis"><geometry><box><size>1 1 0.1</size></box></geometry>
+          <material><ambient>1 0.85 0 1</ambient></material></visual>
+      </link>
+    </model>
+    <model name="dock_tr">
+      <static>true</static>
+      <pose>14.5 14.5 0.05 0 0 0</pose>
+      <link name="link">
+        <visual name="vis"><geometry><box><size>1 1 0.1</size></box></geometry>
+          <material><ambient>1 0.85 0 1</ambient></material></visual>
+      </link>
+    </model>
+    <model name="dock_bl">
+      <static>true</static>
+      <pose>0.5 0.5 0.05 0 0 0</pose>
+      <link name="link">
+        <visual name="vis"><geometry><box><size>1 1 0.1</size></box></geometry>
+          <material><ambient>1 0.85 0 1</ambient></material></visual>
+      </link>
+    </model>
+    <model name="dock_br">
+      <static>true</static>
+      <pose>14.5 0.5 0.05 0 0 0</pose>
+      <link name="link">
+        <visual name="vis"><geometry><box><size>1 1 0.1</size></box></geometry>
+          <material><ambient>1 0.85 0 1</ambient></material></visual>
+      </link>
+    </model>
+
+    <!-- DROP ZONE — center bottom, green marker -->
+    <model name="drop_zone">
+      <static>true</static>
+      <pose>7.5 1.0 0.05 0 0 0</pose>
+      <link name="link">
+        <visual name="vis"><geometry><box><size>2 0.5 0.1</size></box></geometry>
+          <material><ambient>0 1 0.5 1</ambient></material></visual>
+      </link>
+    </model>
+
+  </world>
+</sdf>

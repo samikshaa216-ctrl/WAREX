@@ -1,0 +1,6 @@
+string task_id
+string robot_id
+string outcome
+bool deadline_met
+float32 duration_s
+float32 battery_at_completion

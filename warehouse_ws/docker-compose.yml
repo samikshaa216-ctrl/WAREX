@@ -1,0 +1,112 @@
+version: '3.9'
+
+networks:
+  warehouse_net:
+    driver: bridge
+
+volumes:
+  redis_data:
+  mongo_data:
+  minio_data:
+  checkpoint_data:
+  log_data:
+  experiment_data:
+
+services:
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: warehouse_redis
+    restart: unless-stopped
+    ports: ["6379:6379"]
+    volumes: [redis_data:/data]
+    command: redis-server --save 60 1 --maxmemory 256mb --maxmemory-policy allkeys-lru
+    networks: [warehouse_net]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  mongodb:
+    image: mongo:7.0
+    container_name: warehouse_mongo
+    restart: unless-stopped
+    ports: ["27017:27017"]
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: robot_admin
+      MONGO_INITDB_ROOT_PASSWORD: robot_pass
+      MONGO_INITDB_DATABASE: warehouse_robotics
+    volumes: [mongo_data:/data/db]
+    networks: [warehouse_net]
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  minio:
+    image: minio/minio:RELEASE.2024-01-01T16-36-33Z
+    container_name: warehouse_minio
+    restart: unless-stopped
+    ports: ["9000:9000", "9001:9001"]
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin123
+    volumes: [minio_data:/data]
+    command: server /data --console-address ":9001"
+    networks: [warehouse_net]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  ros2:
+    build:
+      context: .
+      dockerfile: src/Dockerfile
+    container_name: warehouse_ros2
+    restart: unless-stopped
+    environment:
+      - ROS_DOMAIN_ID=42
+      - NUM_ROBOTS=6
+      - REDIS_HOST=redis
+      - MONGODB_URI=mongodb://robot_admin:robot_pass@mongodb:27017/warehouse_robotics
+      - MINIO_ENDPOINT=http://minio:9000
+    volumes:
+      - checkpoint_data:/warehouse_ws/checkpoints
+      - log_data:/warehouse_ws/logs
+      - experiment_data:/warehouse_ws/experiment_results
+    depends_on:
+      redis: {condition: service_healthy}
+    networks: [warehouse_net]
+    command: >
+      bash -c "source /opt/ros/humble/setup.bash &&
+               source install/setup.bash &&
+               ros2 launch warehouse_robot warehouse_system.launch.py
+               num_robots:=${NUM_ROBOTS:-6}"
+
+  api_gateway:
+    build:
+      context: .
+      dockerfile: src/Dockerfile
+    container_name: warehouse_api
+    restart: unless-stopped
+    ports: ["8080:8080"]
+    environment:
+      - ROS_DOMAIN_ID=42
+      - REDIS_HOST=redis
+      - MONGODB_URI=mongodb://robot_admin:robot_pass@mongodb:27017/warehouse_robotics
+    depends_on: [ros2, redis]
+    networks: [warehouse_net]
+    command: >
+      bash -c "sleep 8 &&
+               source /opt/ros/humble/setup.bash &&
+               source install/setup.bash &&
+               ros2 run warehouse_robot api_gateway"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5

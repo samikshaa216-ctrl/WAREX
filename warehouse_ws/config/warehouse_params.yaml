@@ -1,0 +1,59 @@
+system:
+  num_robots: 6
+  simulation_speed: 1.0
+  enable_visualization: true
+  enable_logging: true
+  log_level: INFO
+
+battery:
+  initial_level: 100.0
+  nominal_voltage: 48.0
+  capacity_ah: 50.0
+  critical_threshold: 20.0
+  low_threshold: 40.0
+  discharge_rate_idle: 0.5
+  discharge_rate_moving: 2.0
+  discharge_rate_carrying: 3.5
+  charge_rate: 10.0
+
+checkpoint:
+  enabled: true
+  default_tier: local
+  compression: true
+  compression_level: 6
+  max_local_checkpoints: 10
+
+scheduling:
+  algorithm: battery_aware_edf
+  task_timeout: 300.0
+  battery_reserve: 15.0
+  max_retries: 3
+  deadline_slack: 3.5
+
+warehouse:
+  grid_width: 50
+  grid_height: 30
+  cell_size: 1.0
+  charging_stations: 3
+  charging_station_positions:
+    - [5, 5]
+    - [45, 5]
+    - [25, 25]
+
+network:
+  enable_latency_sim: true
+  base_latency_ms: 10.0
+  jitter_ms: 5.0
+  packet_loss_rate: 0.01
+  default_condition: GOOD
+
+database:
+  redis_host: localhost
+  redis_port: 6379
+  redis_db: 0
+  mongo_uri: mongodb://localhost:27017
+  mongo_db: warehouse_robotics
+  minio_endpoint: http://localhost:9000
+  minio_access_key: minioadmin
+  minio_secret_key: minioadmin123
+  s3_bucket: robot-checkpoints

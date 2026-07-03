@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #050c1a;
+  --surface: #0a1628;
+  --card:    #0f1e35;
+  --border:  #1a3050;
+  --cyan:    #00d4ff;
+  --green:   #00ff88;
+  --yellow:  #ffd700;
+  --red:     #ff3366;
+  --orange:  #ff7a00;
+  --purple:  #9b59ff;
+  --text:    #c8d8f0;
+  --muted:   #4a6080;
+  --dim:     #1e3050;
+}
+
+body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow: hidden; }
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+@keyframes blink    { 0%,100%{opacity:1} 50%{opacity:0} }
+@keyframes fadeUp   { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+@keyframes glow     { from{text-shadow:0 0 4px var(--cyan)} to{text-shadow:0 0 16px var(--cyan),0 0 32px var(--cyan)} }
+@keyframes scan     { 0%{transform:translateY(-100%)} 100%{transform:translateY(100vh)} }
+@keyframes spinRing { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+.blink    { animation: blink 1s step-end infinite; }
+.fade-up  { animation: fadeUp 0.3s ease-out; }
+.glow-txt { animation: glow 2s ease-in-out infinite alternate; }
+
+.scanline::before {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:9999;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,212,255,0.015) 2px, rgba(0,212,255,0.015) 4px);
+}
+.scanline::after {
+  content:''; position:fixed; left:0; right:0; height:3px; z-index:9999; pointer-events:none;
+  background: linear-gradient(90deg, transparent, rgba(0,212,255,0.3), transparent);
+  animation: scan 5s linear infinite;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.status-ACTIVE    { color: var(--cyan);   }
+.status-IDLE      { color: var(--green);  }
+.status-CRASHED   { color: var(--red);    }
+.status-CHARGING  { color: var(--yellow); }
+.status-RECHARGING{ color: var(--yellow); }
