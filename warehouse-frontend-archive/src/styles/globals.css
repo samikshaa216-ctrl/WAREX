@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Inter', sans-serif;
+  background: #060b14;
+  color: #d8e6ff;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #0b1220, #050811);
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.app-shell {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: #0d1626;
+  border-right: 1px solid #1a2e50;
+  padding: 24px;
+}
+
+.brand {
+  font-size: 2rem;
+  color: #00d4ff;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  color: #7aa2d8;
+  margin-bottom: 20px;
+}
+
+.ws-badge {
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: bold;
+  width: fit-content;
+}
+
+.ws-badge.live {
+  background: rgba(0, 255, 136, 0.15);
+  color: #00ff88;
+}
+
+.ws-badge.dead {
+  background: rgba(255, 51, 102, 0.15);
+  color: #ff3366;
+}
+
+.main-content {
+  padding: 24px;
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.cyber-card {
+  background: #111d35;
+  border: 1px solid #1a2e50;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.08);
+}
+
+.cyber-label {
+  color: #7aa2d8;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+.panel {
+  background: #0d1626;
+  border: 1px solid #1a2e50;
+  border-radius: 18px;
+  padding: 20px;
+  min-height: 280px;
+}
+
+.large {
+  grid-row: span 2;
+}
+
+.robot-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.robot-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(0, 212, 255, 0.05);
+}
